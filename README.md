@@ -1,5 +1,6 @@
 # LTSMs-TimeSeries-Seasons
-Based on inputs : specified requirements of TOTALS of ALL Predictions for each month for EACH Model + historical data 
+Makes Time-Based Predictions of future data by observing Trends and Seasonality
+Based on inputs : Specified requirements of TOTALS of ALL Predictions for each month for EACH Model + Historical data 
 
 ------------------------------------------------
 12linear2.py
