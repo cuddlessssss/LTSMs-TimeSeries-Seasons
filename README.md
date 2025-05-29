@@ -4,19 +4,23 @@ Based on inputs : specified requirements of TOTALS of ALL Predictions for each m
 ------------------------------------------------
 12linear2.py
 
+Run Time : Less than a minute
+
 What it does:
 
-A linear regression model that maps out 1) Trends 2) Seasonality
-
-Input Files: future_total_sell_outs_pivoted.xlsx (Columns B onwards:year_month ~ eg. 06-2025, Column A: Model Name, Values = monthly requirement EXACT totals to be met when splitting Model Name to all Account Name later!),
-
-your_past_data.xlsx (Historical data, columns: Date, Category Description (Filtered in code), Model Name, Account Name, Dealer Net Sell Out Qty
+A linear regression model that maps out 1) Trends 2) Seasonality, with core focus on the trend.
 
 Keeps only recent 24 months with filter, aggregating sales PER MONTH by (Model Name, Account Name), Modelling while ignoring extremes (PART 3 BELOW!), rescaling and rounding to ensure 1) Forecasted values are WHOLE NUMBERS 2) Add up to totals given in 
 
 future_total_sell_outs_pivoted.xlsx input requisites given, export into a fresh Excel File (forecast_output_trend_seasonality)
 
 with rounded values in cells, coloured red = rounded UP, coloured green = rounded DOWN
+
+
+Input Files: future_total_sell_outs_pivoted.xlsx (Columns B onwards:year_month ~ eg. 06-2025, Column A: Model Name, Values = monthly requirement EXACT totals to be met when splitting Model Name to all Account Name later!),
+
+your_past_data.xlsx (Historical data, columns: Date, Category Description (Filtered in code), Model Name, Account Name, Dealer Net Sell Out Qty
+
 
 
 # 📌 Forecasting Logic Notes
