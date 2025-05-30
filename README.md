@@ -50,6 +50,8 @@ More sensitive to outliers than linear regression.
 
 12linear2another.py
 
+Purpose: Remove Restrictions on Downward Trend Learning in 12linear2.py where negative outputs -> 0 when its better to negative forecasts -> 0
+
 SAME as 12linear2.py EXCEPT
 
 Non-Negativity Logic has been shifted from within the model to outside of the model -> During Rescaling Step
