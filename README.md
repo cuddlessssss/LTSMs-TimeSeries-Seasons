@@ -2,6 +2,9 @@
 Makes Time-Based Predictions of future data by observing Trends and Seasonality
 Based on inputs : Specified requirements of TOTALS of ALL Predictions for each month for EACH Model + Historical data 
 
+WHY did I not use LTSMs for this case?
+Despite their greater capabilities to analyse seasonalities, I realise they were the main issue being hugely consuming on time + requiring more data to forecast 12 months.
+This project is to build a model that can handle both long and SHORT term datasets too (below 12 months worth)
 ------------------------------------------------
 12linear2.py
 
@@ -11,14 +14,37 @@ What it does:
 
 A linear regression model that maps out 1) Trends 2) Seasonality, with core focus on the trend.
 
-Keeps only recent 24 months with filter, aggregating sales PER MONTH by (Model Name, Account Name), Modelling while ignoring extremes (PART 3 BELOW!), rescaling and rounding to ensure 1) Forecasted values are WHOLE NUMBERS 2) Add up to totals given in 
+Keeps only recent 24 months with filter, aggregating sales PER MONTH by (Model Name, Account Name), 
+
+Linear Regression Modelling while ignoring extremes (beyond 1-99th percentile),
+
+Rescaling is done at the Model Level, meaning ALL Account names for EACH Model Name
+
+Firstly, we compute scaling factor through total model qty input/sum of predictions -> multiply all predictions by this 
+
+Acquiring numbers with decimal points that add up total. 
+
+
+Next, Use rounding logic, a) extract decimal points from integers b) round down all numbers get their total c) change some round down to round up starting with highest 
+
+decimal point numbers until total in step b) matches input model total
+
+Rounding to ensure 
+
+1) Forecasted values are WHOLE NUMBERS, through clipping negative numbers to 0
+
+2) Add up to totals given in 
 
 future_total_sell_outs_pivoted.xlsx input requisites given, export into a fresh Excel File (forecast_output_trend_seasonality)
 
 with rounded values in cells, coloured red = rounded UP, coloured green = rounded DOWN
 
 
-Input Files: future_total_sell_outs_pivoted.xlsx (Columns B onwards:year_month ~ eg. 06-2025, Column A: Model Name, Values = monthly requirement EXACT totals to be met when splitting Model Name to all Account Name later!),
+Input Files: 
+
+future_total_sell_outs_pivoted.xlsx (Columns B onwards:year_month ~ eg. 06-2025, Column A: Model Name, Values = monthly requirement EXACT totals to be met when splitting 
+
+Model Name to all Account Name later!),
 
 your_past_data.xlsx (Historical data, columns: Date, Category Description (Filtered in code), Model Name, Account Name, Dealer Net Sell Out Qty
 
