@@ -3,7 +3,6 @@ Makes Time-Based Predictions of future data by observing Trends and Seasonality
 Based on inputs : Specified requirements of TOTALS of ALL Predictions for each month for EACH Model + Historical data 
 
 Working ideas : 12backteststime2bba.py (NOT working on little data due to LTSMs learning seasonality STRICTLY) -> 12linear2.py (okay model) -> 12linear2another.py (amazing 
-
 model fully captures Downtrend that 12linear2.py did not + after considering 12poscoefflinear.py problem of NOT considering downtrends)
 
 ALL Runtimes : Sub 1 Minute
