@@ -7,7 +7,7 @@ model fully captures Downtrend that 12linear2.py did not + after considering 12p
 
 ALL Runtimes : Sub 1 Minute
 
-# WHY did I not use LTSMs for this case?
+# WHY did I not use LTSMs for this case? Pivoted to Trend + Seasonality with Linear Regression which captures LINEAR VS more DYNAMIC learning with Machine Learning!
 Despite their greater capabilities to analyse seasonalities, I realise they were the main issue being hugely consuming on time + requiring more data to forecast 12 months.
 This project is to build a model that can handle both long and SHORT term datasets too (below 12 months worth)
 
