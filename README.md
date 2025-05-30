@@ -5,6 +5,45 @@ Based on inputs : Specified requirements of TOTALS of ALL Predictions for each m
 WHY did I not use LTSMs for this case?
 Despite their greater capabilities to analyse seasonalities, I realise they were the main issue being hugely consuming on time + requiring more data to forecast 12 months.
 This project is to build a model that can handle both long and SHORT term datasets too (below 12 months worth)
+
+ALTERNATIVE Models BESIDES Linear Regression -> to handle #Non-Negative Outputs!
+
+A. Log Transformation
+
+Pros:
+
+Prevents negative forecasts naturally.
+
+Preserves downward trends (since log values still go down, just not below zero).
+
+Stabilizes variance if your sales vary a lot.
+
+Cons:
+
+May underpredict when raw values are very low.
+
+Concerns with accuracy trade-off as 1. Log compresses larger values and spreads out smaller ones.
+
+Requires all input y >= 0.
+
+B. sklearn.linear_model.PoissonRegressor
+
+-> predicts only non-negative outputs
+
+Pros:
+
+Non-negativity is guaranteed mathematically.
+
+More suitable for count data like sales.
+
+Can still learn decreasing trends (e.g., 20 → 15 → 10).
+
+Cons:
+
+Assumes target is Poisson-distributed — may need to check if that's a good fit.
+
+More sensitive to outliers than linear regression.
+
 ------------------------------------------------
 12linear2.py
 
@@ -102,7 +141,27 @@ It incorporates both trend and seasonality, with a post-processing step to ensur
 
 ----------------------------------------------
 
+12poscoefflinear.py
+
+LIMITATION: CANNOT learn downtrends, Biased towards Uptrends
+
+Edit from 12linear.py
+
+Different Non Negativity Logic
+
+Differences
+
+1) Using Lasso Machine Learning for L1 Regularisation of Coefficients, preventing overfitting
+
+  Alpha value, default set to 0.001
+
+  IF set to 0, it is a normal linear regression model!
+
+3) No -ve Coeffs or Intercepts learnt in model. Minimum is 0.
+----------------------------------------------
+
 12backteststime2bba.py
+
 This way, your model can learn:
 
 1. Seasonality (sin/cos of month)
