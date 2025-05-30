@@ -2,7 +2,9 @@
 Makes Time-Based Predictions of future data by observing Trends and Seasonality
 Based on inputs : Specified requirements of TOTALS of ALL Predictions for each month for EACH Model + Historical data 
 
-WHY did I not use LTSMs for this case?
+ALL Runtimes : Sub 1 Minute
+
+# WHY did I not use LTSMs for this case?
 Despite their greater capabilities to analyse seasonalities, I realise they were the main issue being hugely consuming on time + requiring more data to forecast 12 months.
 This project is to build a model that can handle both long and SHORT term datasets too (below 12 months worth)
 
@@ -43,6 +45,23 @@ Cons:
 Assumes target is Poisson-distributed — may need to check if that's a good fit.
 
 More sensitive to outliers than linear regression.
+
+------------------------------------------------
+
+12linear2another.py
+
+SAME as 12linear2.py EXCEPT
+
+Non-Negativity Logic has been shifted from within the model to outside of the model -> During Rescaling Step
+
+Replacing Clipping Negative OUTPUTS
+
+future_vals = np.clip(reg.predict(X_future), 0, None)
+
+With Ignoring Negative FORECASTS to 0
+
+preds_for_model = np.maximum(preds_for_model, 0)
+
 
 ------------------------------------------------
 12linear2.py
