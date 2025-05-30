@@ -2,6 +2,10 @@
 Makes Time-Based Predictions of future data by observing Trends and Seasonality
 Based on inputs : Specified requirements of TOTALS of ALL Predictions for each month for EACH Model + Historical data 
 
+Working ideas : 12backteststime2bba.py (NOT working on little data due to LTSMs learning seasonality STRICTLY) -> 12linear2.py (okay model) -> 12linear2another.py (amazing 
+
+model fully captures Downtrend that 12linear2.py did not + after considering 12poscoefflinear.py problem of NOT considering downtrends)
+
 ALL Runtimes : Sub 1 Minute
 
 # WHY did I not use LTSMs for this case?
@@ -183,6 +187,8 @@ Differences
 
 12backteststime2bba.py
 
+LTSMs with sin/cos seasonality ideas
+
 This way, your model can learn:
 
 1. Seasonality (sin/cos of month)
@@ -190,6 +196,14 @@ This way, your model can learn:
 2. Trend (year, time_index)
 
 3. Month number for absolute time positioning
+
+Key Problems:
+
+1. 1st Month heavily skewed towards one Account for 2025-06,, Issue Attributed to 2024-06 input data learnt where ONLY that 1 account had a value
+
+2. Point 1. Meaning yearly seasonality was forced... Which is why I pivoted to 
+   
+# Linear Regression in 12linear2.py
 
 12backteststime2bb.py
 
