@@ -11,6 +11,14 @@ ALL Runtimes : Sub 1 Minute
 Despite their greater capabilities to analyse seasonalities, I realise they were the main issue being hugely consuming on time + requiring more data to forecast 12 months.
 This project is to build a model that can handle both long and SHORT term datasets too (below 12 months worth)
 
+# WHY linear over lasso regression?
+Lasso = Linear + penalising too heavy coeff -> aims to fix overfitting but it reduces flexibility of the model
+Lasso is usually utilised when there are many features but our current dataset does NOT require it
+
+1. Small Feature Set so we want to use all Coefficients in the Linear Regression Model
+
+2. Captures Trend + Seasonality w/out Constraints
+
 ALTERNATIVE Models BESIDES Linear Regression -> to handle #Non-Negative Outputs!
 
 A. Log Transformation
