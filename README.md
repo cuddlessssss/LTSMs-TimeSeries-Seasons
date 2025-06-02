@@ -49,9 +49,15 @@ Assumes target is Poisson-distributed — may need to check if that's a good fit
 
 More sensitive to outliers than linear regression.
 
+-----------------------------------------------
+
+12linear2anotherlin.py (Linear Regression)
+
+SAME as 12linear2another.py but changed regression model.
+
 ------------------------------------------------
 
-12linear2another.py
+12linear2another.py (Lasso Regression) = Linear Regression but for many features + solving overfitting issues. -> alpha set to 0.001
 
 Purpose: Remove Restrictions on Downward Trend Learning in 12linear2.py where negative outputs -> 0 when its better to negative forecasts -> 0
 
