@@ -9,8 +9,8 @@ Test for Removing values beyond 1 and 99th Percentile -> SHOULD REMOVE!!
 WHY? Cause we want forecasting power, NOT fit quality (overfitting)
 The "Full" model seems to perfectly memorize the data (bad sign for forecasting).
 
-Backtesting : 12linear2anotherlinback.py ~ calculates MAE, MSE and RMSE as a % of total actuals (so lower the better)
-Filtered -- all least 30 units in 24 months
+ForwardTesting: Forecast 12 months ahead and find % of totals for BOTH Actuals + Forecast Months -> COMPARE SAME months
+Output excel: forecast_output_trend_seasonality_testing_actuals.xlsx
 
 [INFO] Average Errors Comparison:
 Mean MAE (Trimmed): 0.2559
