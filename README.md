@@ -7,6 +7,8 @@ model fully captures Downtrend that 12linear2.py did not + after considering 12p
 
 Test for Removing values beyond 1 and 99th Percentile -> SHOULD REMOVE!!
 WHY? Cause we want forecasting power, NOT fit quality (overfitting)
+The "Full" model seems to perfectly memorize the data (bad sign for forecasting).
+
 [INFO] Average Errors Comparison:
 Mean MAE (Trimmed): 0.2559
 Mean MAE (Full):    ≈ 0
