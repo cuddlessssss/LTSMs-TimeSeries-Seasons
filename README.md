@@ -5,6 +5,21 @@ Based on inputs : Specified requirements of TOTALS of ALL Predictions for each m
 Working ideas : 12backteststime2bba.py (NOT working on little data due to LTSMs learning seasonality STRICTLY) -> 12linear2.py (okay model) -> 12linear2another.py (almost complete as DECIDING between Lasso [many features prevent overfit] and Linear Regression -- amazing 
 model fully captures Downtrend that 12linear2.py did not + after considering 12poscoefflinear.py problem of NOT considering downtrends) -> 12inear2anotherlin.py (Linear Regression model)
 
+Test for Removing values beyond 1 and 99th Percentile -> SHOULD REMOVE!!
+WHY? Cause we want forecasting power, NOT fit quality (overfitting)
+[INFO] Average Errors Comparison:
+Mean MAE (Trimmed): 0.2559
+Mean MAE (Full):    ≈ 0
+Mean MSE (Trimmed): 5.9981
+Mean MSE (Full):    ≈ 0
+
+| Trimmed Model                      | Untrimmed Model                     |
+| ---------------------------------- | ----------------------------------- |
+| Generalizes better                 | Overfits badly                      |
+| Smoother forecasts                 | May react to past noise             |
+| Slightly less perfect on past data | Nearly perfect fit (but misleading) |
+
+
 ALL Runtimes : Sub 1 Minute
 
 # WHY did I not use LTSMs for this case? Pivoted to Trend + Seasonality with Linear Regression which captures LINEAR VS more DYNAMIC learning with Machine Learning!
