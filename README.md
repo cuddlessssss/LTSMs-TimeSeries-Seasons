@@ -4,6 +4,8 @@ Based on inputs : Specified requirements of TOTALS of ALL Predictions for each m
 
 Working ideas : 12backteststime2bba.py (NOT working on little data due to LTSMs learning seasonality STRICTLY) -> 12linear2.py (okay model) -> 12linear2another.py (almost complete as DECIDING between Lasso [many features prevent overfit] and Linear Regression -- amazing 
 model fully captures Downtrend that 12linear2.py did not + after considering 12poscoefflinear.py problem of NOT considering downtrends) -> 12inear2anotherlin.py (Linear Regression model)
+or -> theone.py (12linear2another.py without the 99/1 percentiles, ALL data utilised)
+or -> 12linearhuber.py (Huber regression replacing linear regression + remove 99/1 percentiles)
 
 Test for Removing values beyond 1 and 99th Percentile -> SHOULD REMOVE!!
 WHY? Cause we want forecasting power, NOT fit quality (overfitting)
