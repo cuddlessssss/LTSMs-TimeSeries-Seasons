@@ -6,6 +6,7 @@ Working ideas : 12backteststime2bba.py (NOT working on little data due to LTSMs 
 model fully captures Downtrend that 12linear2.py did not + after considering 12poscoefflinear.py problem of NOT considering downtrends) -> 12inear2anotherlin.py (Linear Regression model)
 or -> theone.py (12linear2another.py without the 99/1 percentiles, ALL data utilised)
 or -> 12linearhuber.py (Huber regression replacing linear regression + remove 99/1 percentiles)
+or RAW -> 12rawforecasts.py (RAW numbers forecast, BEFORE rounding, upscaling and colouring)
 
 Test for Removing values beyond 1 and 99th Percentile -> SHOULD REMOVE!!
 WHY? Cause we want forecasting power, NOT fit quality (overfitting)
