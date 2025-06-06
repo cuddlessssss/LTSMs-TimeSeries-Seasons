@@ -15,6 +15,20 @@ The "Full" model seems to perfectly memorize the data (bad sign for forecasting)
 ForwardTesting: Forecast 12 months ahead and find % of totals for BOTH Actuals + Forecast Months -> COMPARE SAME months
 Output excel: forecast_output_trend_seasonality_testing_actuals.xlsx
 
+---------------------------------------
+IMPROVING IDEAS
+The 99/1 percentile or Huber Regressions for different modelling
+Filtering to only high data accounts
+
+
+
+
+
+
+
+
+----------------------------------
+
 [INFO] Average Errors Comparison:
 Mean MAE (Trimmed): 0.2559
 Mean MAE (Full):    ≈ 0
