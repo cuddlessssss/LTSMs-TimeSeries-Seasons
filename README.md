@@ -26,6 +26,29 @@ Mean MSE (Full):    ≈ 0
 | Smoother forecasts                 | May react to past noise             |
 | Slightly less perfect on past data | Nearly perfect fit (but misleading) |
 
+🔍 Why the Regression Fit May Not Follow December Actuals:
+Linear Regression Assumes Smooth Trends and Repeating Patterns
+Your model uses a linear time trend and monthly seasonality via dummy variables.
+
+It learns an “average” December effect based on the 12-month window.
+
+If December 2024 had a sales spike (e.g., promotions, supply changes), it won’t be fully captured unless similar spikes occurred in previous Decembers.
+
+Limited Historical Data (Only 12 Months)
+With only one December in your dataset, the model has no other December to compare to.
+
+This weakens the reliability of seasonal estimation for December.
+
+Outlier Handling Trims Extremes
+Your code removes values outside the 1st to 99th percentiles.
+
+If December had an unusually high or low value, it might be partially excluded from the fit, reducing its influence.
+
+No Special Holiday Effect Included
+December might have retail effects (e.g., year-end sales, holidays).
+
+Your model does not explicitly account for such event-based factors.
+
 
 ALL Runtimes : Sub 1 Minute
 
