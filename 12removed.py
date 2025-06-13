@@ -51,12 +51,15 @@ for col_idx, (model_enc, account_enc) in enumerate(pivot.columns):
     p1, p99 = np.percentile(y, [1, 99])
     mask = (y >= p1) & (y <= p99)
 
+    # Decode names
+    model_name = f1_encoder.inverse_transform([model_enc])[0]
+    account_name = f2_encoder.inverse_transform([account_enc])[0]
+
     # Log filtered-out values
     excluded_indices = np.where(~mask)[0]
     for idx in excluded_indices:
-        print(f"🔍 Outlier removed - Model_enc={model_enc}, Account_enc={account_enc}, "
+        print(f"🔍 Outlier removed - Model={model_name}, Account={account_name}, "
               f"Month={pivot.index[idx]}, Qty={y[idx]:.2f}, outside range [{p1:.2f}, {p99:.2f}]")
-
 
     reg = LinearRegression()
     reg.fit(X_trend_season[mask], y[mask])
