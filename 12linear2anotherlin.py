@@ -50,8 +50,8 @@ for col_idx, (model_enc, account_enc) in enumerate(pivot.columns):
     y = pivot.iloc[:, col_idx].values
 
     # Remove extreme values (outside 1st and 100th percentiles)
-    p1, p99 = np.percentile(y, [1, 100])
-    mask = (y >= p1) & (y <= p99)
+    p1, p100 = np.percentile(y, [1, 100])
+    mask = (y >= p1) & (y <= p100)
 
     reg = LinearRegression()
     reg.fit(X_trend_season[mask], y[mask])
