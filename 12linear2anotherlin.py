@@ -49,8 +49,8 @@ X_trend_season = np.hstack([months_numeric, month_dummies])
 for col_idx, (model_enc, account_enc) in enumerate(pivot.columns):
     y = pivot.iloc[:, col_idx].values
 
-    # Remove extreme values (outside 1st and 99th percentiles)
-    p1, p99 = np.percentile(y, [1, 99])
+    # Remove extreme values (outside 1st and 100th percentiles)
+    p1, p99 = np.percentile(y, [1, 100])
     mask = (y >= p1) & (y <= p99)
 
     reg = LinearRegression()
