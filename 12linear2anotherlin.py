@@ -16,14 +16,22 @@ future_total_melted = future_total_raw.melt(
 )
 future_total_melted['year_month'] = pd.to_datetime(future_total_melted['year_month']).dt.to_period('M')
 
+# 🧼 Clean whitespace and non-breaking spaces
+future_total_melted['Model Name'] = future_total_melted['Model Name'].str.strip().str.replace('\xa0', ' ', regex=False)
+
 # 2. Load Past Sales Data
-data = pd.read_excel('your_past_data.xlsx', sheet_name='updated')
+data = pd.read_excel('your_past_data.xlsx', sheet_name='hav')
 data.columns = data.columns.str.strip()
-data = data[data['Category Description'].str.strip() == 'LCD TV']
+data = data[data['Category Description'].str.strip() == 'HAV']
 data = data[data['Dealer Net Sell Out Qty'] >= 0]
 data['Date'] = pd.to_datetime(data['Date'], errors='coerce')
 data['year_month'] = data['Date'].dt.to_period('M')
 data = data[data['Date'] >= data['Date'].max() - pd.DateOffset(months=12)]
+
+# 🧼 Clean whitespace and non-breaking spaces
+data['Model Name'] = data['Model Name'].str.strip().str.replace('\xa0', ' ', regex=False)
+data['Account Name'] = data['Account Name'].str.strip().str.replace('\xa0', ' ', regex=False)
+future_total_melted['Model Name'] = future_total_melted['Model Name'].str.strip().str.replace('\xa0', ' ', regex=False)
 
 # Label encode
 f1_encoder = LabelEncoder()
@@ -48,15 +56,12 @@ X_trend_season = np.hstack([months_numeric, month_dummies])
 
 for col_idx, (model_enc, account_enc) in enumerate(pivot.columns):
     y = pivot.iloc[:, col_idx].values
-
-    # Remove extreme values (outside 1st and 100th percentiles)
     p1, p100 = np.percentile(y, [1, 100])
     mask = (y >= p1) & (y <= p100)
 
     reg = LinearRegression()
     reg.fit(X_trend_season[mask], y[mask])
 
-    # Create future predictors
     future_months = np.arange(len(pivot.index), len(pivot.index) + 12).reshape(-1, 1)
     last_month = pivot.index[-1].to_timestamp()
     future_periods = pd.date_range(start=last_month + pd.offsets.MonthBegin(1), periods=12, freq='ME')
@@ -66,7 +71,7 @@ for col_idx, (model_enc, account_enc) in enumerate(pivot.columns):
     X_future = np.hstack([future_months, future_month_dummies])
 
     future_vals = reg.predict(X_future)
-    trend_preds[(model_enc, account_enc)] = future_vals  # allow negatives here
+    trend_preds[(model_enc, account_enc)] = future_vals
 
 # 5. Assemble trend_preds into forecast_preds array
 forecast_preds = np.zeros((12, len(pivot.columns)))
@@ -96,8 +101,6 @@ for month_idx in range(forecast_preds.shape[0]):
     for model_enc in f1_encoder.transform(f1_encoder.classes_):
         idxs = [i for i, (m, a) in enumerate(column_index) if m == model_enc]
         preds_for_model = forecast_preds[month_idx, idxs]
-
-        # 🚫 Don't clip during prediction — ✅ Floor negatives here
         preds_for_model = np.maximum(preds_for_model, 0)
 
         sum_preds = preds_for_model.sum()
@@ -155,5 +158,5 @@ for (model, account), row in export_pivot.iterrows():
         elif highlight == 'down':
             ws.cell(row=current_row, column=col_idx).fill = fill_down
 
-wb.save('forecast_output_trend_seasonality_testing_actuals.xlsx')
+wb.save('forecast_output_trend_seasonality_testing_actuals_hav.xlsx')
 print(f"✅ Finished in {time.time() - total_start:.2f} seconds")
