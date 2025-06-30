@@ -45,10 +45,10 @@ data['Date'] = pd.to_datetime(data['Date'], errors='coerce')
 data['year_month'] = data['Date'].dt.to_period('M')
 data = data[data['Date'] >= data['Date'].max() - pd.DateOffset(months=12)]
 
-# Clean strings
-data['Model Code'] = data['Model Code'].astype(str).str.strip().str.replace('\xa0', ' ', regex=False)
+# Clean strings and pad with 0s
+data['Model Code'] = data['Model Code'].astype(str).str.strip().str.replace('\xa0', ' ', regex=False).str.zfill(8)
 data['Account Name'] = data['Account Name'].astype(str).str.strip().str.replace('\xa0', ' ', regex=False)
-future_total_melted['Model Code'] = future_total_melted['Model Code'].astype(str).str.strip().str.replace('\xa0', ' ', regex=False)
+future_total_melted['Model Code'] = future_total_melted['Model Code'].astype(str).str.strip().str.replace('\xa0', ' ', regex=False).str.zfill(8)
 
 # 3. Label encoding
 f1_encoder = LabelEncoder()
@@ -143,7 +143,7 @@ for month_idx in range(forecast_preds.shape[0]):
 
 # 8. Reverse transform and export
 rescaled_df = pd.DataFrame(rescaled_forecast)
-rescaled_df['Model Code'] = pd.Series(f1_encoder.inverse_transform(rescaled_df['model_enc'])).astype(str).str.zfill(5)
+rescaled_df['Model Code'] = pd.Series(f1_encoder.inverse_transform(rescaled_df['model_enc'])).astype(str).str.zfill(8)
 rescaled_df['Account Name'] = f2_encoder.inverse_transform(rescaled_df['account_enc'])
 rescaled_df['year_month'] = rescaled_df['year_month'].dt.to_timestamp()
 
@@ -162,7 +162,7 @@ fill_up = PatternFill(start_color='FFFF0000', end_color='FFFF0000', fill_type='s
 fill_down = PatternFill(start_color='FF00FF00', end_color='FF00FF00', fill_type='solid')
 
 for (model, account), row in export_pivot.iterrows():
-    # ❌ Removed the `'` prefix
+    # Final padded model without quote
     data_row = [model, account] + row.tolist()
     ws.append(data_row)
     current_row = ws.max_row
