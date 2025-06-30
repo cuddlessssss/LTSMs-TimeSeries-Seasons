@@ -39,7 +39,14 @@ if 'Model Code' not in data.columns:
     raise ValueError("❌ 'Model Code' column not found in past data.")
 
 # Filter & clean
-data = data[data['Category Description'].str.strip() == 'DI AND UNIVERSAL ACCY']
+# 💡 Set either a single string or a list of strings
+selected_category = ['DI AND UNIVERSAL ACCY', 'MDR & PORTABLE DEVICE']  # or 'LCD TV'
+
+if isinstance(selected_category, str):
+    data = data[data['Category Description'].str.strip() == selected_category]
+else:
+    data = data[data['Category Description'].str.strip().isin(selected_category)]
+    
 data = data[data['Dealer Net Sell Out Qty'] >= 0]
 data['Date'] = pd.to_datetime(data['Date'], errors='coerce')
 data['year_month'] = data['Date'].dt.to_period('M')
